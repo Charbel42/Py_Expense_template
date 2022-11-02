@@ -24,8 +24,9 @@ expense_questions = [
 
 def new_expense(*args):
     infos = prompt(expense_questions)
-    c = open('expense_report.csv', 'w')
-    c.write(infos['amount'] + ',' + infos['label'] + ',' + infos['spender'])
+    with open('expense_report.csv', 'a', newline='') as csvfile:
+        spamwriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+        spamwriter.writerow([infos['amount'], infos['label'], infos['spender']])
     print("Expense Added !")
     return True
 
